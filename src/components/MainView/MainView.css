@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css?family=Shrikhand');
+.index_view .cross_button{
+  display: none;
+}
+.index_view{
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
+  background-image: url('../../assets/back1.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.navbar{
+  border-radius: 0;
+  position: relative;
+  border: 0;
+  background: transparent;
+}
+.navbar-header{
+  position: absolute;
+  left: 49%;
+  transform: translateX(-49%);
+}
+.navbar-brand span{
+  font-size: 1.2em;
+  color: #ffffff;
+  font-family : Shrikhand;
+}
+.navbar-brand img{
+  height: 80px;
+  width: 80px;
+}
+.welcome{
+  margin: auto;
+  display: flex;
+  flex-flow: column;
+}
+.welcome p{
+    font-family: Helvetica;
+  font-size: 5em;
+  font-weight: bolder;
+  color: #ffffff;
+  text-align: center;
+}
+.button_search{
+  margin: auto;
+  border-radius: 10px;
+  padding: 10px;
+  width: 200px;
+  letter-spacing: 2px;
+  font-family: Helvetica;
+  font-size: 1em;
+  background: inherit;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+.button_search:hover{
+  background: #ffffff;
+  color: black;
+}

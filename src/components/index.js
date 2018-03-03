@@ -1,0 +1,5 @@
+export {default as MainView} from "./MainView"
+export {default as ResultsView} from "./ResultsView"
+export {default as ActorsView} from "./ActorsView"
+export {default as ProfileView} from "./ProfileView"
+export {default as MovieView} from "./MovieView"
