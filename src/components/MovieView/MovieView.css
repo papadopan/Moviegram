@@ -12,7 +12,7 @@
   display: flex;
   flex-flow: row;
 }
-.upcoming{
+.upcoming_movies{
   order: 3;
   flex: 2;
   height: 100vh;
@@ -26,7 +26,7 @@
   background: #141414;
 
 }
-.latest{
+.latest_movies{
   order: 1;
   flex: 2;
   height: 100vh;
@@ -59,6 +59,14 @@
   width: 50%;
   position: absolute;
   left: 1px;
+}
+.upcoming_list_item p{
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  width: 40%;
 }
 .upcoming_list_item span{
   position: absolute;

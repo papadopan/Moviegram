@@ -28,10 +28,28 @@ class SideBar extends Component{
     super(props);
     this.state = {
         genres: [],
-        query : ""
+        query : "",
+        dropdown: " Genres"
 
     };
   }
+
+  componentDidMount(){
+     this.fetchData()
+   }
+
+   fetchData(){
+     fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=f35de773b53c4803aa0d72b2f16794f4&language=en-US')
+     .then(response => response.json())
+     .then(results => results.genres.map( movie =>(
+       {
+           name : `${movie.name}`,
+           id : `${movie.id}`
+       }
+     )))
+     .then(genres => this.setState({genres}))
+     .catch(error => console.log("There is an error with the API"))
+   }
 
   handleChangeQuery = (param) =>
   {
@@ -39,22 +57,12 @@ class SideBar extends Component{
     this.props.ResultsQuery(param);
   }
 
-  componentDidMount(){
-    this.fetchData()
-  }
-
-  fetchData(){
-    fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=f35de773b53c4803aa0d72b2f16794f4&language=en-US')
-    .then(response => response.json())
-    .then(results => results.genres.map( movie =>(
-      {
-          name : `${movie.name}`
-      }
-    )))
-    .then(genres => this.setState({genres}))
-    .catch(error => console.log("There is an error with the API"))
-  }
-
+handleli = (e)=>{
+  console.log(e.target.id)
+  this.setState({dropdown:e.target.className})
+  this.props.SideBarDropDownInfo(e.target.className , e.target.id)
+  this.props.MoveToGenreMovies()
+}
   render()
   {
 
@@ -67,22 +75,22 @@ class SideBar extends Component{
             <p>I am interested in</p>
           <div className="dropdown">
             <button className="btn  dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Dropdown
+              {this.state.dropdown}
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-              {
-                this.state.genres.map(movie=>{
-                  return <li key = {movie.name}><a> {movie.name} </a></li>
-                })
-              }
+                        {
+                            this.state.genres.map(movie=>{
+                              return <li key = {movie.name} onClick={this.handleli}><a className ={movie.name} id={movie.id}> {movie.name} </a></li>
+                            })
+                }
             </ul>
             </div>
           </div>
         </div>
         <div className="searches">
             <SearchButton
-              placeholder={"Search movie . . ."}
+              placeholder={"Search movies . . ."}
               onClick ={() => this.props.onSideBarClick()}
               onQueryChange= {this.handleChangeQuery}
                 />

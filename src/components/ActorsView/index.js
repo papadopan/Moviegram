@@ -15,10 +15,11 @@ class ActorsView extends Component{
 
   componentDidMount(){
     this.fetchActorsData();
-    alert(this.props.query)
   }
+
+
   fetchActorsData(){
-    fetch('https://api.themoviedb.org/3/search/person?api_key=f35de773b53c4803aa0d72b2f16794f4&language=en-US&query=' + this.props.query)
+    fetch('https://api.themoviedb.org/3/search/person?api_key=f35de773b53c4803aa0d72b2f16794f4&language=en-US&query=' + this.props.actor)
     .then(response => response.json())
     .then(data => data.results.map(actor =>(
       {
@@ -43,7 +44,7 @@ class ActorsView extends Component{
                 {
                   this.state.data.map(actor =>
                   {
-                    return <p key={actor.name}>{actor.name}</p>
+                    return  <p key={actor.name}>{actor.name}</p>
                   })
                 }
               <p>1969-02-11</p>

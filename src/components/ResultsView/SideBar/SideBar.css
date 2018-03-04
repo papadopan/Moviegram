@@ -15,6 +15,7 @@
 ul.dropdown-menu{
   background: #f81f1f;
   color: #141414;
+  cursor: pointer;
 }
 ul.dropdown-menu li a:hover{
   background-color: #141414;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {MainView, ResultsView,ActorsView, ProfileView,MovieView} from './components'
+import {MainView, ResultsView,ActorsView, ProfileView,MovieView,SearchResults,MovieList} from './components'
 import './App.css';
 
 class App extends Component {
@@ -8,27 +8,63 @@ class App extends Component {
   {
     super(props);
     this.state={
+      movie_id:" ",
+      dropdown_name:" ",
+      dropdown_id: " ",
       query: " ",
       showMainView:true,
       showResultsView:false,
       showActorsView:false,
       showProfileView:false,
-      showMovieView:false
+      showMovieView:false,
+      showSearchResults:false,
+      showMovieList:false
     };
+  }
+
+  movetomovie= (parameter)=>
+  {
+    this.setState={
+        movie_id:parameter
+    };
+
+  }
+  AppDropDownInfo = (name,id)=>
+  {
+
+    this.setState({
+      dropdown_name:name,
+      dropdown_id:id
+    });
   }
 
 update = (param) =>
 {
   this.setState({query:param})
 }
-showMovie = () =>
+showGenreMovie = () =>
 {
   this.setState(oldState => ({
     showMainView:false,
     showResultsView:false,
     showActorsView:false,
     showProfileView:false,
-    showMovieView: true
+    showMovieView: false,
+    showSearchResults:true,
+    showMovieList:false
+  }));
+}
+
+showMovieList = () =>
+{
+  this.setState(oldState => ({
+    showMainView:false,
+    showResultsView:false,
+    showActorsView:false,
+    showProfileView:false,
+    showMovieView: false,
+    showSearchResults:false,
+    showMovieList:true
   }));
 }
 showActor = () =>
@@ -38,7 +74,9 @@ showActor = () =>
     showResultsView:false,
     showActorsView:true,
     showProfileView:false,
-    showMovieView: false
+    showMovieView: false,
+    showSearchResults:false,
+    showMovieList:false
   }));
 }
 ShowResultsView = () =>
@@ -48,8 +86,23 @@ ShowResultsView = () =>
     showResultsView:true,
     showActorsView:false,
     showProfileView:false,
-    showMovieView: false
+    showMovieView: false,
+    showSearchResults:false,
+    showMovieList:false
   }));
+}
+showTheMovie = ()=>
+{
+  this.setState(oldState => ({
+    showMainView:false,
+    showResultsView:false,
+    showActorsView:false,
+    showProfileView:false,
+    showMovieView: true,
+    showSearchResults:false,
+    showMovieList:false
+  }));
+
 }
 
   render() {
@@ -66,8 +119,12 @@ ShowResultsView = () =>
       return (
             <ResultsView
             onShowActor= { () => this.showActor()}
-              onShowMovie = {() => this.showMovie()}
+              onShowMovie = {() => this.showMovieList()}
               AppQuery = {this.update}
+              ResultsDropDownInfo={this.AppDropDownInfo}
+              movetogenremovies={()=>this.showGenreMovie()}
+              MoveToMovie={this.movetomovie}
+              ShowMovieOn = {() => this.showTheMovie()}
               />
       );
 
@@ -76,6 +133,7 @@ ShowResultsView = () =>
     {
       return(
         <ActorsView
+          actor = {this.state.query}
           Go_back= {() => this.ShowResultsView()}
         />
       );
@@ -92,6 +150,25 @@ ShowResultsView = () =>
       return(
           <MovieView
             Go_back= {() => this.ShowResultsView()}
+          />
+      );
+    }
+    if(this.state.showSearchResults)
+    {
+      return(
+          <SearchResults
+              name = {this.state.dropdown_name}
+              id = {this.state.dropdown_id}
+              Go_back={()=>this.ShowResultsView}
+          />
+      );
+    }
+    if(this.state.showMovieList)
+    {
+      return(
+          <MovieList
+          value= {this.state.query}
+          Go_back={()=>this.ShowResultsView}
           />
       );
     }

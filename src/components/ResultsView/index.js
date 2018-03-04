@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import './ResultsView.css';
 import SideBar from "./SideBar"
-import Slider from "./Slider"
 import logo from "../../assets/logo1.png"
+import friends from "../../assets/friends.jpg"
 
 
 class ResultsView extends Component{
@@ -11,12 +11,43 @@ class ResultsView extends Component{
     super(props);
     this.state={
       showingSideBar : false,
+      top_rated: []
     }
   }
 
+  componentDidMount(){
+    this.fetchTopRated();
+  }
+  fetchTopRated()
+  {
+    fetch('https://api.themoviedb.org/3/movie/top_rated?api_key=f35de773b53c4803aa0d72b2f16794f4&language=en-US')
+    .then(response => response.json())
+    .then(data => data.results.map(movies =>(
+      {
+        title :`${movies.original_title}`,
+        date: `${movies.release_date}`,
+        image: `${movies.poster_path}`,
+        id: `${movies.id}`
+      }
+    )))
+    .then(data => this.setState({top_rated: data}))
+    .catch("There is an error with the API")
+
+  }
+handleImageClick = (e)=>
+{
+  console.log(e.target.id)
+  this.props.MoveToMovie(e.target.id)
+  this.props.ShowMovieOn();
+}
 handlefind = (param)=>
 {
   this.props.AppQuery(param);
+}
+
+handleDropdownInfo = (name , id)=>
+{
+  this.props.ResultsDropDownInfo(name,id)
 }
 
 
@@ -60,29 +91,34 @@ handlefind = (param)=>
           onSideBarClick = {() =>this.props.onShowMovie()}
           onSide = {() => this.props.onShowActor()}
           ResultsQuery = {this.handlefind}
+          SideBarDropDownInfo={this.handleDropdownInfo}
+          MoveToGenreMovies={()=>this.props.movetogenremovies()}
+
         />
   <div className="wrapper">
       <div className="search_header">
-        <h1>Box office time...</h1>
+        <h1>Box office time . . .</h1>
       </div>
   </div>
   <div className="results_list">
-      <h1>Your search results are empty</h1>
-    </div>
-<div className="now_playing">
-    <div className="playing">
-        <Slider />
-      </div>
-    <div className="playing_header">
-      <h1>Now Playing</h1>
-    </div>
-</div>
 
+  {
+      this.state.top_rated.map(movies =>
+        {
+          return      <div key={movies.id} className="movie_slides">
+                            <div className="card" onClick={this.handleImageClick}>
+                            <img id={movies.id} src={friends} alt="movie"/>
+                            <div className="info">
+                              <p>{movies.title}({movies.date})</p>
+                            </div>
+                            <button className="btn">Add</button>
+                            </div>
+                          </div>
+        }
+      )
+  }
 
-
-
-
-
+  </div>
 
 </div>
 
