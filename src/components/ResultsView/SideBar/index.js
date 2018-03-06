@@ -4,7 +4,7 @@ import logo from "../../../assets/logo1.png"
 
 class SearchButton extends Component{
 
-
+//handling clicks
   handleChange= (event)=>
   {
     this.props.onQueryChange( event.target.value)
@@ -14,7 +14,7 @@ class SearchButton extends Component{
     return(
       <div>
         <div className="form-group">
-          <input type="text" className="movies_input " value={this.props.query} placeholder={this.props.placeholder} onChange={ this.handleChange}/>
+          <input type="text" className="movies_input " value={this.props.query} placeholder={this.props.placeholder} onChange={ this.handleChange} />
         </div>
         <button className="btn movies_btn" onClick={ () => this.props.onClick()}>Search</button>
       </div>
@@ -51,24 +51,33 @@ class SideBar extends Component{
      .catch(error => console.log("There is an error with the API"))
    }
 
+//handling clicks
   handleChangeQuery = (param) =>
   {
     this.setState({query:param});
     this.props.ResultsQuery(param);
   }
-
 handleli = (e)=>{
   console.log(e.target.id)
   this.setState({dropdown:e.target.className})
   this.props.SideBarDropDownInfo(e.target.className , e.target.id)
   this.props.MoveToGenreMovies()
 }
+handleProfile=()=>
+{
+  this.props.MoveToProfile();
+}
+
   render()
   {
 
     return(
       <div className={this.props.showing ? "sidenavbar move" : "sidenavbar"}>
         <img src={logo} alt="" />
+        <div className="myprofile" onClick={this.handleProfile}>
+        <i className="far fa-2x fa-user"></i>
+          <p>my profile</p>
+        </div>
         <hr/>
         <div className="searches">
           <div className="form-group">
@@ -90,7 +99,7 @@ handleli = (e)=>{
         </div>
         <div className="searches">
             <SearchButton
-              placeholder={"Search movies . . ."}
+              placeholder={"Search movies . . ." }
               onClick ={() => this.props.onSideBarClick()}
               onQueryChange= {this.handleChangeQuery}
                 />

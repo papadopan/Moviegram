@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {MainView, ResultsView,ActorsView, ProfileView,MovieView,SearchResults,MovieList} from './components'
+import {MainView, ResultsView,ActorsView, ProfileView,SearchResults,MovieList} from './components'
 import './App.css';
 
 class App extends Component {
@@ -12,6 +12,9 @@ class App extends Component {
       dropdown_name:" ",
       dropdown_id: " ",
       query: " ",
+      actor_name:"",
+      actor_id: "",
+      myMovies:[ ],
       showMainView:true,
       showResultsView:false,
       showActorsView:false,
@@ -21,7 +24,14 @@ class App extends Component {
       showMovieList:false
     };
   }
-
+//add the movies to my list
+addmymovies = (parameter)=>{
+  var myMovies = this.state.myMovies.slice()
+  myMovies.push(parameter)
+  this.setState({
+    myMovies: myMovies
+  });
+}
   movetomovie= (parameter)=>
   {
     this.setState={
@@ -29,6 +39,7 @@ class App extends Component {
     };
 
   }
+  //keep record of the gerne name and id
   AppDropDownInfo = (name,id)=>
   {
 
@@ -38,9 +49,25 @@ class App extends Component {
     });
   }
 
+//fetch the name of the actor and call the API
 update = (param) =>
 {
   this.setState({query:param})
+  this.fetchActorid(param)
+}
+fetchActorid(param)
+{
+
+    fetch('https://api.themoviedb.org/3/search/person?api_key=f35de773b53c4803aa0d72b2f16794f4&language=en-US&query=' + param)
+    .then(response => response.json())
+    .then(response=>this.setState({
+        actor_name: response.results[0].name,
+        actor_id : response.results[0].id
+      }
+    ))
+    .catch(error => console.log("Problem loading data"))
+
+//Show the results from the dropdown menu
 }
 showGenreMovie = () =>
 {
@@ -54,7 +81,7 @@ showGenreMovie = () =>
     showMovieList:false
   }));
 }
-
+// show the list from the movie search
 showMovieList = () =>
 {
   this.setState(oldState => ({
@@ -67,6 +94,7 @@ showMovieList = () =>
     showMovieList:true
   }));
 }
+//show the actor page
 showActor = () =>
 {
   this.setState(oldState => ({
@@ -79,6 +107,7 @@ showActor = () =>
     showMovieList:false
   }));
 }
+//show the results view
 ShowResultsView = () =>
 {
   this.setState(oldState => ({
@@ -91,18 +120,18 @@ ShowResultsView = () =>
     showMovieList:false
   }));
 }
-showTheMovie = ()=>
+//show my profile
+showprofile = () =>
 {
   this.setState(oldState => ({
     showMainView:false,
     showResultsView:false,
     showActorsView:false,
-    showProfileView:false,
-    showMovieView: true,
+    showProfileView:true,
+    showMovieView: false,
     showSearchResults:false,
     showMovieList:false
   }));
-
 }
 
   render() {
@@ -124,33 +153,20 @@ showTheMovie = ()=>
               ResultsDropDownInfo={this.AppDropDownInfo}
               movetogenremovies={()=>this.showGenreMovie()}
               MoveToMovie={this.movetomovie}
-              ShowMovieOn = {() => this.showTheMovie()}
+              AddMyMovies={this.addmymovies}
+              movetoprofile={this.showprofile}
+              mymovies = {this.state.myMovies}
               />
       );
-
     }
     if(this.state.showActorsView)
     {
       return(
         <ActorsView
-          actor = {this.state.query}
+          actor = {this.state.actor_name}
+          id = {this.state.actor_id}
           Go_back= {() => this.ShowResultsView()}
         />
-      );
-    }
-    if(this.state.showProfileView)
-    {
-      return(
-        <ProfileView
-        Go_back= {() => this.ShowResultsView()} />
-      );
-    }
-    if(this.state.showMovieView)
-    {
-      return(
-          <MovieView
-            Go_back= {() => this.ShowResultsView()}
-          />
       );
     }
     if(this.state.showSearchResults)
@@ -160,6 +176,8 @@ showTheMovie = ()=>
               name = {this.state.dropdown_name}
               id = {this.state.dropdown_id}
               Go_back={()=>this.ShowResultsView}
+              AddMyMovies={this.addmymovies}
+              mymovies={this.state.myMovies}
           />
       );
     }
@@ -169,11 +187,18 @@ showTheMovie = ()=>
           <MovieList
           value= {this.state.query}
           Go_back={()=>this.ShowResultsView}
+          AddMyMovies={this.addmymovies}
+          mymovies={this.state.myMovies}
           />
       );
     }
-
-
+    if(this.state.showProfileView)
+    {
+      return <ProfileView
+      movies={this.state.myMovies}
+        Go_back={()=>this.ShowResultsView}
+        />
+    }
     return (
           <div>
           <h1>Welcome</h1>

@@ -10,6 +10,9 @@
   flex: 1;
   padding: 10px;
 }
+.go_back{
+  margin-bottom: 20px;
+}
 .go_back img{
   height: 50px;
 }
@@ -22,7 +25,7 @@
 }
 .timeline img{
   height: 200px;
-  width: 200px;
+  width: 180px;
   border-radius: 50%;
   border: 1px solid #141414;
 }
@@ -98,7 +101,7 @@ font-weight: bolder;
 .mymovies{
   margin: auto;
   margin-top: 100px;
-  width: 50%;
+  width: 100%;
   order: 5;
   flex:6;
   display: flex;
@@ -106,5 +109,6 @@ font-weight: bolder;
   flex-wrap: wrap;
 }
 .mymovies .box{
-  margin-top: 10px;
+  margin: auto;
+  margin-bottom: 20px;
 }

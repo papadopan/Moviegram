@@ -1,11 +1,45 @@
 import React,{Component} from 'react'
 import './ProfileView.css'
-import jennifer from "../../assets/jennifer.jpg"
+import antonios from "../../assets/antonios.jpg"
 import left from "../../assets/long-left.svg"
-import friends from "../../assets/friends.jpg"
+
+
 
 
 class ProfileView extends Component{
+
+  constructor(props)
+  {
+    super(props);
+    this.state={
+      data:[]
+    }
+  }
+
+
+componentDidMount(){
+  this.setState({isLoaderOn:true})
+  this.fetchMyMovies();
+}
+fetchMyMovies()
+{
+
+        this.props.movies.map(movie=>{
+            return fetch('https://api.themoviedb.org/3/movie/'+movie+'?api_key=f35de773b53c4803aa0d72b2f16794f4&language=en-US')
+            .then(response=> response.json())
+            .then(response =>{
+              const data = this.state.data.slice()
+              data.push(response)
+              this.setState({
+                data
+              })
+            })
+            .catch(error=> console.log("error"))
+
+      })
+}
+
+
   render()
   {
     return (
@@ -15,104 +49,30 @@ class ProfileView extends Component{
           </div>
           <div className="timeline">
             <div className="personal_infos">
-              <img src={jennifer} alt="profile"/>
+              <img src={antonios} alt="profile"/>
               <p>Papadopoulos Antonios</p>
-              <span>23 movies | 12 Wishlist</span>
+              <p>25 years old</p>
+              <span>#{this.props.movies.length} movies</span>
+              <p>"I have passion with horror movies"</p>
             </div>
-          </div>
-          <div className="check_options">
-          <div>
-            <label className="switch" >
-              <input type="checkbox" id="s" />
-              <span className="slider round"></span>
-            </label>
-          </div>
-          </div>
-          <div className="stream">
-            <h1>My movies</h1>
           </div>
           <div className="mymovies">
-          <div className="box">
-            <img src={friends} alt="poster"/>
-            <div className="overlay">
-              <div>
-                <p className="overlay_title">Friends</p>
-                <p className="overlay_date"> 2003-05-23</p>
-              </div>
-            </div>
-          </div>
-          <div className="box">
-            <img src={friends} alt="poster"/>
-            <div className="overlay">
-              <div>
-                <p className="overlay_title">Friends</p>
-                <p className="overlay_date"> 2003-05-23</p>
-              </div>
-            </div>
-          </div>
-          <div className="box">
-            <img src={friends} alt="poster"/>
-            <div className="overlay">
-              <div>
-                <p className="overlay_title">Friends</p>
-                <p className="overlay_date"> 2003-05-23</p>
-              </div>
-            </div>
-          </div>
-          <div className="box">
-            <img src={friends} alt="poster"/>
-            <div className="overlay">
-              <div>
-                <p className="overlay_title">Friends</p>
-                <p className="overlay_date"> 2003-05-23</p>
-              </div>
-            </div>
-          </div>
-          <div className="box">
-            <img src={friends} alt="poster"/>
-            <div className="overlay">
-              <div>
-                <p className="overlay_title">Friends</p>
-                <p className="overlay_date"> 2003-05-23</p>
-              </div>
-            </div>
-          </div>
-          <div className="box">
-            <img src={friends} alt="poster"/>
-            <div className="overlay">
-              <div>
-                <p className="overlay_title">Friends</p>
-                <p className="overlay_date"> 2003-05-23</p>
-              </div>
-            </div>
-          </div>
-          <div className="box">
-            <img src={friends} alt="poster"/>
-            <div className="overlay">
-              <div>
-                <p className="overlay_title">Friends</p>
-                <p className="overlay_date"> 2003-05-23</p>
-              </div>
-            </div>
-          </div>
-          <div className="box">
-            <img src={friends} alt="poster"/>
-            <div className="overlay">
-              <div>
-                <p className="overlay_title">Friends</p>
-                <p className="overlay_date"> 2003-05-23</p>
-              </div>
-            </div>
-          </div>
-          <div className="box">
-            <img src={friends} alt="poster"/>
-            <div className="overlay">
-              <div>
-                <p className="overlay_title">Friends</p>
-                <p className="overlay_date"> 2003-05-23</p>
-              </div>
-            </div>
-          </div>
+
+              {
+                this.state.data.map(({ title, id, release_date, poster_path }) =>
+                {
+                  return                     <div className="box" key={`movie-${id}`}>
+                                                    <img src={`http://image.tmdb.org/t/p/w185/${poster_path}`} alt="poster"/>
+                                                    <div className="overlay">
+                                                        <div>
+                                                            <p className="overlay_title">{title}</p>
+                                                            <p className="overlay_date"> {release_date}</p>
+                                                        </div>
+                                                      </div>
+                                                  </div>
+                })
+              }
+
 
           </div>
 

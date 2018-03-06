@@ -41,15 +41,16 @@ ul.dropdown-menu li a:hover{
 .movies_input{
   border: 0;
   border-bottom: 1px solid #f81f1f;
-  width: 100%;
+  width: 80%;
   background: transparent;
   color: #ffffff;
   font-size: 20px;
   text-align: center;
+
 }
 .searches{
   position:relative;
-  margin-bottom: 80px;
+  margin-bottom: 120px;
   color: #818181;
 }
 .searches button{
@@ -71,4 +72,7 @@ ul.dropdown-menu li a:hover{
   margin-top: 40px;
   margin-bottom: 20px;
   text-align: center;
+}
+.fa-user{
+  cursor: pointer;
 }

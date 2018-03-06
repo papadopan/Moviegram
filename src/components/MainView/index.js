@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import logo from "../../assets/logo1.png"
 import './MainView.css';
 
-
 class MainView extends Component{
   render()
   {
@@ -34,5 +33,4 @@ class MainView extends Component{
     );
   }
 }
-
 export default MainView;

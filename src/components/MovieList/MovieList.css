@@ -1,37 +1,3 @@
-
-  .cross_button{
-  height: 100px;
-  width: 100px;
-  position: absolute;
-  left:  0px;
-  top:10px;
-  display: block;
-}
-.move_btn{
-  margin-left: 240px;
-  transition: 0.5s;
-}
-path{
-  transition: stroke-dashoffset 0.5s ease-in-out,
-  stroke-dasharray 0.5s ease-in-out;
-  stroke-width: 50px;
-  stroke-linecap:round;
-  stroke: #f81f1f;
-}
-path#top , path#bottom {
-  stroke-dasharray: 240px 910px;
-}
-path#middle{
-  stroke-dasharray: 240px 2000px;
-}
-.cross path#top , .cross path#bottom{
-  stroke-dashoffset: -650px;
-}
-.cross path#middle{
-  stroke-dashoffset: -650px;
-  /*stroke-dasharray: 1px 220px;*/
-}
-
 .second_screen{
   display: flex;
   flex-flow: column;
@@ -60,8 +26,6 @@ path#middle{
   order: 3;
   flex:3;
   background: #f81f1f;
-
-  padding: 5px;
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
@@ -90,9 +54,9 @@ ul.dropdown-menu li a:hover{
   color: #ffffff;
   font-weight: bolder;
 }
-/* .movie_slides{
+.movie_slides{
   margin: auto;
-} */
+}
 
 /**/
 /* Next & previous buttons */
@@ -130,7 +94,7 @@ ul.dropdown-menu li a:hover{
   margin-left: 30px;
   margin-top: 30px;
   height: 300px;
-  width: 300px;
+  width: 250px;
   background: #141414;
   border: 1px solid lightgrey;
   position: relative;
@@ -163,4 +127,34 @@ ul.dropdown-menu li a:hover{
   border:0;
   background: #f81f1f;
   color: black;
+}
+.showing{
+  display: block;
+}
+.hiding{
+  display: none;
+}
+.error_screen{
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column;
+  background: black;
+}
+.back_button{
+  order: 1;
+  flex: 1;
+  background: #141414;
+}
+.back_button img{
+  height: 50px;
+}
+.error_message{
+  order: 2;
+  flex: 13;
+  background: #f81f1f;
+  color:#141414;
+  display: flex;
+}
+.error_message h1{
+  margin: auto;
 }

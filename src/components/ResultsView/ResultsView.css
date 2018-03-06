@@ -1,5 +1,5 @@
 
-  .cross_button{
+.cross_button{
   height: 100px;
   width: 100px;
   position: absolute;
@@ -46,12 +46,21 @@ path#middle{
 .wrapper h1{
   text-align: center;
 }
-.results_list{
+.dropdown_selection{
   order: 2;
+  flex:1;
+  background: #141414;
+  display: flex;
+  padding:10px;
+}
+.dropdown_selection .form-group{
+  margin: auto;
+}
+.results_list{
+  order: 3;
   flex:3;
   background: #f81f1f;
-
-  padding: 5px;
+  padding: 1px;
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
@@ -69,7 +78,18 @@ path#middle{
 /* .movie_slides{
   margin: auto;
 } */
-
+.container{
+margin: auto;
+}
+.modal-content{
+  background: #141414;
+  color: white;
+  margin: auto;
+}
+.fa-times{
+color: #f81f1f;
+font-size: 32px;
+}
 /**/
 /* Next & previous buttons */
 .prev, .next {
@@ -106,7 +126,7 @@ path#middle{
   margin-left: 30px;
   margin-top: 30px;
   height: 300px;
-  width: 300px;
+  width: 250px;
   background: #141414;
   border: 1px solid lightgrey;
   position: relative;
@@ -143,4 +163,61 @@ path#middle{
   border:0;
   background: #f81f1f;
   color: black;
+}
+.filtered
+{
+    background: transparent;
+    border: 1px solid #f81f1f;
+    color: white;
+    letter-spacing: 2px;
+    width: 150px;
+  }
+  .loader{
+    position: absolute;
+    z-index: 100;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+  }
+  .showing{
+    display: block;
+  }
+  .hiding{
+    display: none;
+  }
+
+
+  /*media queries*/
+
+
+@media only screen and (max-width: 992px){
+  .navbar-brand img{
+    height: 60px;
+    width: 60px;
+  }
+
+}
+
+
+@media only screen and (max-width: 480px)
+{
+  .navbar-brand span{
+    font-size: .8em;
+  }
+  .navbar-brand img{
+    height: 50px;
+    width: 50px;
+  }
+
+}
+
+@media only screen and (max-width: 320px){
+  .navbar-brand span{
+    font-size: .8em;
+  }
+  .navbar-brand img{
+    height: 40px;
+    width: 40px;
+  }
+
 }
